@@ -1,5 +1,6 @@
 'use client'
 import type { RankedItem } from '@/lib/scoring'
+import { FavoriteButton } from './FavoriteButton'
 
 const TYPE_LABEL: Record<string, string> = {
   Answer: '回答', Article: '文章', Question: '问题',
@@ -32,6 +33,7 @@ export function AnswerCard({ item }: { item: RankedItem }) {
         <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
           查看原文 →
         </a>
+        <FavoriteButton item={item} />
       </div>
     </div>
   )
