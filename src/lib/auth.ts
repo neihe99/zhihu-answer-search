@@ -6,3 +6,8 @@ export function isAuthorized(authHeader: string | null, password: string | undef
   if (sep < 0) return false
   return decoded.slice(sep + 1) === password
 }
+
+export function isCronAuthorized(authHeader: string | null, secret: string | undefined): boolean {
+  if (!secret) return false
+  return authHeader === `Bearer ${secret}`
+}
