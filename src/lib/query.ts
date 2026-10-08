@@ -1,7 +1,8 @@
 import { createHash } from 'node:crypto'
 
 export function normalizeQuery(raw: string): string {
-  return raw.trim().replace(/\s+/g, ' ').toLowerCase()
+  // 注意：知乎搜索大小写敏感（RAG ≠ rag），不能转小写
+  return raw.trim().replace(/\s+/g, ' ')
 }
 
 export function isValidQuery(raw: string): boolean {

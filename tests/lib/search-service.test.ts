@@ -41,7 +41,7 @@ describe('searchAnswers', () => {
     const r = await searchAnswers(d, 'RAG 评测')
     expect(d.mocks.throttle).toHaveBeenCalledBefore(d.mocks.fetchFromZhihu)
     expect(d.mocks.save).toHaveBeenCalledOnce()
-    expect(d.mocks.log).toHaveBeenCalledWith('rag 评测', false, 1)
+    expect(d.mocks.log).toHaveBeenCalledWith('RAG 评测', false, 1)
     expect(r.fromCache).toBe(false)
     expect(r.answers[0].score).toBeGreaterThan(0)
   })
