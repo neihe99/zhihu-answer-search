@@ -46,19 +46,17 @@ function mapItem(r: RawItem): SearchItem {
 }
 
 export interface ZhihuClient {
-  search(query: string, opts?: { minUpvotes?: number }): Promise<SearchItem[]>
+  search(query: string): Promise<SearchItem[]>
 }
 
 export function createZhihuClient(token: string, fetchImpl: typeof fetch = fetch): ZhihuClient {
   return {
-    async search(query, opts = {}) {
-      const minUpvotes = opts.minUpvotes ?? 100
+    async search(query) {
       const url = new URL(API_BASE + SEARCH_PATH)
       url.searchParams.set('Query', query)
       url.searchParams.set('Count', '10')
-      if (minUpvotes > 0) {
-        url.searchParams.set('SortBy', `VoteUpCount:desc:(${minUpvotes},)`)
-      }
+      // 不发送 SortBy：平台缺陷——SortBy 与非 ASCII Query 组合恒返回空（无相关内容）。
+      // 质量门槛（赞同 ≥100）由 rankItems 在客户端兜底过滤。
 
       const resp = await fetchImpl(url, {
         headers: {

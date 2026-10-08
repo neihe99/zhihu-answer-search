@@ -58,17 +58,11 @@ describe('createZhihuClient', () => {
     const u = new URL(url as string)
     expect(u.pathname).toBe('/api/v1/content/zhihu_search')
     expect(u.searchParams.get('Query')).toBe('rag')
-    expect(u.searchParams.get('SortBy')).toBe('VoteUpCount:desc:(100,)')
+    // 平台缺陷：SortBy 与中文 Query 组合恒返回空，绝不发送（质量过滤在 rankItems 做）
+    expect(u.searchParams.get('SortBy')).toBeNull()
     const headers = init.headers as Record<string, string>
     expect(headers.Authorization).toBe('Bearer token-1')
     expect(Number(headers['X-Request-Timestamp'])).toBeGreaterThan(0)
-  })
-
-  it('minUpvotes=0 时不传 SortBy', async () => {
-    const fetchImpl = mockFetch(samplePayload)
-    await createZhihuClient('t', fetchImpl).search('rag', { minUpvotes: 0 })
-    const [url] = fetchImpl.mock.calls[0] as unknown as [string]
-    expect(new URL(url as string).searchParams.get('SortBy')).toBeNull()
   })
 
   it('Code !== 0 时抛 ZhihuApiError 并带错误码', async () => {

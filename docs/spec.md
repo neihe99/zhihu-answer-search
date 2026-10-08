@@ -55,8 +55,8 @@
 
 ## 质量评分（规则版）
 
-- 服务端过滤：`SortBy = "VoteUpCount:desc:(100,)"`（赞同 ≥100）
-- 客户端兜底过滤：`upvotes ≥ 100`（防参数失效）且 `摘要长度 ≥ 30` 字符
+- ~~服务端过滤：`SortBy = "VoteUpCount:desc:(100,)"`~~ **已废弃**——实测平台缺陷：`SortBy` 与非 ASCII（中文）Query 组合恒返回空结果（`EmptyReason: 无相关内容`），纯 ASCII 查询正常。改为客户端过滤。
+- 客户端过滤：`upvotes ≥ 100` 且 `摘要长度 ≥ 30` 字符（`rankItems` 实现）
 - 评分：`score = upvotes × 0.7 + comments × 0.3`，降序
 
 ## 数据模型（Neon）
