@@ -1,7 +1,8 @@
 'use client'
 import { useState } from 'react'
+import type { SearchItem } from '@/lib/zhihu/types'
 
-export function FavoriteButton({ item }: { item: Record<string, unknown> }) {
+export function FavoriteButton({ item }: { item: SearchItem }) {
   const [done, setDone] = useState(false)
   return (
     <button
