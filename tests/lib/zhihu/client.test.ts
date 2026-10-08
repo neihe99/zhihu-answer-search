@@ -51,7 +51,10 @@ describe('createZhihuClient', () => {
       authorName: '张三',
     })
 
-    const [url, init] = fetchImpl.mock.calls[0]
+    const [url, init] = fetchImpl.mock.calls[0] as unknown as [
+      string,
+      { headers: Record<string, string> },
+    ]
     const u = new URL(url as string)
     expect(u.pathname).toBe('/api/v1/content/zhihu_search')
     expect(u.searchParams.get('Query')).toBe('rag')
@@ -64,7 +67,7 @@ describe('createZhihuClient', () => {
   it('minUpvotes=0 时不传 SortBy', async () => {
     const fetchImpl = mockFetch(samplePayload)
     await createZhihuClient('t', fetchImpl).search('rag', { minUpvotes: 0 })
-    const [url] = fetchImpl.mock.calls[0]
+    const [url] = fetchImpl.mock.calls[0] as unknown as [string]
     expect(new URL(url as string).searchParams.get('SortBy')).toBeNull()
   })
 
