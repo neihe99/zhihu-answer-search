@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "db:apply": "node --env-file=.env.local scripts/apply-schema.mjs",
+    "db:verify": "node --env-file=.env.local scripts/verify-schema.mjs",
+    "db:verify-store": "node --env-file=.env.local scripts/verify-store.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.2.0",
