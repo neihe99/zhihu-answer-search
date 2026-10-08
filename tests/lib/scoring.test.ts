@@ -4,7 +4,7 @@ import type { SearchItem } from '@/lib/zhihu/types'
 
 function item(overrides: Partial<SearchItem>): SearchItem {
   return {
-    id: '1', contentType: 'Answer', title: 't', excerpt: '这是一段足够长度的回答摘要内容', url: '',
+    id: '1', contentType: 'Answer', title: 't', excerpt: '这是一段足够长度的回答摘要内容，用来通过质量过滤门槛，确保达标', url: '',
     upvotes: 100, comments: 10, authorName: 'a', authorAvatar: '', authorBadgeText: '',
     editTime: 0, rankingScore: 0,
     ...overrides,
